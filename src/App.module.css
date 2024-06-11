@@ -3,8 +3,16 @@
 	max-width: 750px;
 	margin: auto;
 	padding: 1rem;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .title {
 	text-align: center;
+}
+
+body {
+	background-color: #e7e7e7;
 }

@@ -1,21 +1,26 @@
+import { useState } from 'react';
 import style from './App.module.css';
-import SearchCategory from './components/SearchCategory';
+import AddCategory from './components/AddCategory';
+import GifGrid from './components/GifGrid';
 
 const App = () => {
-	// const [categories, setCategories] = useState(['One punch', 'Dragon ball']);
+	const [categories, setCategories] = useState(['']);
+
+	const onAddCategory = newCategory => {
+		if (categories.includes(newCategory)) return;
+		setCategories([newCategory, ...categories]);
+	};
 
 	return (
-		<main className={style.wrapper}>
-			{/* titulo */}
-			<h1 className={style.title}>App</h1>
+		<div className={style.wrapper}>
+			<h1 className={style.title}>GifExpertApp</h1>
 
-			{/* Input */}
-			<SearchCategory />
+			<AddCategory onNewCategory={value => onAddCategory(value)} />
 
-			{/* Listado de gifs */}
-
-			{/* gif */}
-		</main>
+			{categories.map(category => (
+				<GifGrid key={category} category={category} />
+			))}
+		</div>
 	);
 };
 
