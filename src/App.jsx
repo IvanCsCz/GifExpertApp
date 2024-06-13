@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import style from './App.module.css';
-import AddCategory from './components/AddCategory';
+import AddSearch from './components/AddSearch';
 import GifGrid from './components/GifGrid';
+import { useGifs } from './lib/hooks/useGifs';
 
 const App = () => {
-	const [categories, setCategories] = useState(['']);
-
-	const onAddCategory = newCategory => {
-		if (categories.includes(newCategory)) return;
-		setCategories([newCategory, ...categories]);
-	};
+	const [searchValue, setSearchValue] = useState('One punch');
+	const { gifs, error, loading } = useGifs(searchValue);
 
 	return (
 		<div className={style.wrapper}>
 			<h1 className={style.title}>GifExpertApp</h1>
 
-			<AddCategory onNewCategory={value => onAddCategory(value)} />
+			<AddSearch setSearchValue={setSearchValue} />
 
-			{categories.map(category => (
-				<GifGrid key={category} category={category} />
-			))}
+			<GifGrid
+				gifs={gifs}
+				error={error}
+				loading={loading}
+				searchValue={searchValue}
+			/>
 		</div>
 	);
 };

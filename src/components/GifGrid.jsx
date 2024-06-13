@@ -1,18 +1,17 @@
-import { useFetchGifs } from '../lib/hooks/useFetchGifs';
 import style from './GifGrid.module.css';
 import GifItem from './GifItem';
 
-const GifGrid = ({ category }) => {
-	const { images, isLoading } = useFetchGifs(category);
+const GifGrid = ({ gifs, error, loading, searchValue }) => {
+	if (loading) return <p>Cargando gifs...</p>;
+	if (error) return <p>Error al cargar los usuarios</p>;
+	if (!gifs.length) return <p>No hay gifs</p>;
 
 	return (
 		<>
-			<h3>{category}</h3>
-			{isLoading && <h2>Cargando...</h2>}
-
+			<h3>{searchValue}</h3>
 			<div className={style.cardGrid}>
-				{images.map(image => (
-					<GifItem key={image.id} {...image} />
+				{gifs.map(gif => (
+					<GifItem key={gif.id} {...gif} />
 				))}
 			</div>
 		</>

@@ -1,20 +1,16 @@
 import { useState } from 'react';
 import InputSearch from './forms/InputSearch';
 
-const AddCategory = ({ onNewCategory }) => {
+const AddSearch = ({ setSearchValue }) => {
 	const [inputValue, setInputValue] = useState('');
-
-	const onInputChange = ({ target }) => {
-		setInputValue(target.value);
-	};
 
 	const onSubmit = event => {
 		event.preventDefault();
-		if (inputValue.trim().length <= 1) return;
+		const inputValueTrimed = inputValue.trim();
+		if (inputValueTrimed.length <= 1) return;
 
-		// setCategories( categories => [ inputValue, ...categories ]);
+		setSearchValue(inputValueTrimed);
 		setInputValue('');
-		onNewCategory(inputValue.trim());
 	};
 
 	return (
@@ -22,10 +18,10 @@ const AddCategory = ({ onNewCategory }) => {
 			<InputSearch
 				placeholder='Buscar gifs'
 				value={inputValue}
-				onChange={onInputChange}
+				onChange={ev => setInputValue(ev.target.value)}
 			/>
 		</form>
 	);
 };
 
-export default AddCategory;
+export default AddSearch;
